@@ -86,4 +86,49 @@ const deleteInfluencer = (req, res) => {
     });
 }
 
-export {getAllInfluencers, getInfluencersById, createInfluencers}
+const uptadeInfluencer = (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome, nicho, plataforma, seguidores, engajamento, ultimoPost, pais, ativo } = req.body;
+
+    const idParaEditar = id;
+
+    if (isNaN(idParaEditar)) {
+        return res.status(400).json({
+            success: false,
+            message: "O id deve ser um número válido"
+        });
+    }
+
+    const influencerExiste = influencers.find(influencer => influencer.id === idParaEditar);
+    if (!influencerExiste) {
+        return res.status(404).json({
+            success: false,
+            message: `Influencer com o id ${id} não aceito`
+        });
+    }
+
+    const influencersAtualizados = influencers.map (influencer => influencer.id === idParaEditar ? {
+        ...influencer,
+        ...(nome && {nome}),
+        ...(nicho && {nicho}),
+        ...(plataforma && {plataforma}),
+        ...(seguidores && {seguidores}),
+        ...(engajamento && {engajamento}),
+        ...(ultimoPost && {ultimoPost}),
+        ...(pais && {pais}),
+        ...(ativo && {ativo})
+    } : influencer
+);
+
+influencers.splice(0, influencers.length, ...influencersAtualizados);
+
+const influencerEditado = influencers.find(influencer => influencer.id === idParaEditar);
+
+res.status(200).json({
+    success: true,
+    message: "Dados dos influencers atualizados",
+    influencer: influencerEditado
+})
+}
+
+export {getAllInfluencers, getInfluencersById, createInfluencers, deleteInfluencer, uptadeInfluencer}
