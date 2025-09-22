@@ -10,5 +10,22 @@ const getAllInfluencers = (req, res) => {
     });
 };
 
+const getInfluencersById = (req, res) => {
+    const id =parseInt(req.params.id);
+    const influencer = influencers.find(i => i.id === id);
 
-export {getAllInfluencers}
+    if(!influencer) {
+        return res.status(404).json({
+            success: false,
+            message: `Influencer com o ${id} não encontrado`
+        });
+    }
+
+    res.status(200).json({
+        total:influencer.length,
+        data: influencer
+    });
+};
+
+
+export {getAllInfluencers, getInfluencersById}

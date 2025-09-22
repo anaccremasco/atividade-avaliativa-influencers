@@ -1,8 +1,9 @@
 import express from "express";
-import { getAllInfluencers} from "../controllers/influencersController.js";
+import { getAllInfluencers, getInfluencersById} from "../controllers/influencersController.js";
 
 const router = express.Router();
 
 router.get("/", getAllInfluencers);
+router.get("/:id", getInfluencersById)
 
 export default router;
