@@ -57,4 +57,33 @@ const createInfluencers = (req, res) => {
     });
 };
 
-export {getAllInfluencers, getInfluencersById}
+const deleteInfluencer = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if(isNaN(id)) {
+        return res.status(404).json({
+            success: false,
+            message: "O id precisa de válido"
+        });
+    }
+
+    const influencerParaRemover = influencers.find(i => i.id === id);
+
+    if (!influencerParaRemover) {
+        return res.status(404).json({
+            success: false,
+            message: `Infuencer com o id ${id} não existe!`
+        });
+    }
+
+    const influencerFiltrados = influencers.filter(influencers => influencers.id !== id);
+
+    influencers.splice(0, influencers.length, ...influencerFiltrados);
+
+    res.status(200).json({
+        success: true,
+        message: `O influencer com o id ${id} foi removido`
+    });
+}
+
+export {getAllInfluencers, getInfluencersById, createInfluencers}
