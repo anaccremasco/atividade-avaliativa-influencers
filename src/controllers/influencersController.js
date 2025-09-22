@@ -27,5 +27,34 @@ const getInfluencersById = (req, res) => {
     });
 };
 
+const createInfluencers = (req, res) => {
+    const {nome, nicho, plataforma, seguidores, engajamento, pais, ativo} = req.body;
+
+    if ( !nome || !nicho || !plataforma || !seguidores || !engajamento || !pais || !ativo) {
+        return res.status(400).json({
+            success: false,
+            message: "Nome, nicho, plataforma, seguidores, engajamento, país e status são obrigatórios"
+        });
+    }
+
+    const novoInfluencer = {
+        id: influencers.length + 1,
+        nome: nome,
+        nicho: nicho,
+        plataforma: plataforma,
+        seguidores: seguidores,
+        engajamento: engajamento,
+        pais: pais,
+        ativo: ativo
+    }
+
+    influencers.push(novoInfluencer)
+
+    res.status(201).json({
+        success: true,
+        message: "Novo influencer adicionado",
+        data: novoInfluencer
+    });
+};
 
 export {getAllInfluencers, getInfluencersById}
