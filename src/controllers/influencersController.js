@@ -4,6 +4,22 @@ const { influencers} = dados;
 const getAllInfluencers = (req, res) => {
     let resultado = influencers;
 
+    if (nicho) {
+        resultado = resultado.filter(i => i.nicho.toLowerCase().includes(nicho.toLowerCase()))
+    };
+
+    if (plataforma) {
+        resultado = resultado.filter(i => i.plataforma.toLowerCase().includes(plataforma.toLowerCase()))
+    };
+
+    if (engajamento) {
+        resultado = resultado.filter(i => i.engajamento.toLowerCase().includes(engajamento.toLowerCase()))
+    };
+
+    if (seguidores) {
+        resultado = resultado.filter(i => i.seguidores.toLowerCase().includes(seguidores.toLowerCase()))
+    };
+
     res.status(200).json({
         total:resultado.length,
         data: resultado
@@ -11,7 +27,7 @@ const getAllInfluencers = (req, res) => {
 };
 
 const getInfluencersById = (req, res) => {
-    const id =parseInt(req.params.id);
+    const id = parseInt(req.params.id);
     const influencer = influencers.find(i => i.id === id);
 
     if(!influencer) {
@@ -28,7 +44,7 @@ const getInfluencersById = (req, res) => {
 };
 
 const createInfluencers = (req, res) => {
-    const {nome, nicho, plataforma, seguidores, engajamento, pais, ativo} = req.body;
+    const { nome, nicho, plataforma, seguidores, engajamento, pais, ativo } = req.body;
 
     if ( !nome || !nicho || !plataforma || !seguidores || !engajamento || !pais || !ativo) {
         return res.status(400).json({
@@ -131,4 +147,4 @@ res.status(200).json({
 })
 }
 
-export {getAllInfluencers, getInfluencersById, createInfluencers, deleteInfluencer, uptadeInfluencer}
+export { getAllInfluencers, getInfluencersById, createInfluencers, deleteInfluencer, uptadeInfluencer };

@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
     res.send("Servidor funcionando...");
 });
 
-app.use("/influencers", influencersRoutes)
+app.use("/influencers", influencersRoutes);
 
 app.listen(serverPort, () => {
     console.log(`Servidor rodando em http://localhost:${serverPort}`);

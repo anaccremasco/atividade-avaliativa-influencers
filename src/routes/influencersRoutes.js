@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllInfluencers, getInfluencersById, createInfluencers, deleteInfluencer, uptadeInfluencer} from "../controllers/influencersController.js";
+import { getAllInfluencers, getInfluencersById, createInfluencers, deleteInfluencer, uptadeInfluencer} from "./../controllers/influencersController.js";
 
 const router = express.Router();
 

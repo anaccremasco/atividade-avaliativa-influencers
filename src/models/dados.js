@@ -109,6 +109,6 @@ const influencers = [
         pais: "Brasil",
         ativo: "Ativo" 
     }
-]
+];
 
-export default { influencers }
+export default { influencers };
